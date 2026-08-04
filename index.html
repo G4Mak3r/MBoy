@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+  <meta name="theme-color" content="#071827" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Морской бой" />
+  <title>Морской бой — 2 игрока</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="ocean-bg" aria-hidden="true"></div>
+
+  <main class="app-shell">
+    <header class="topbar">
+      <div>
+        <div class="eyebrow">Игра на одном устройстве</div>
+        <h1>Морской бой</h1>
+      </div>
+      <button id="newGameBtn" class="icon-btn" type="button" title="Новая игра" aria-label="Новая игра">↻</button>
+    </header>
+
+    <section id="screenStart" class="screen active">
+      <div class="hero-card glass">
+        <div class="hero-icon">⚓</div>
+        <h2>Два игрока. Один iPad.</h2>
+        <p>Расставьте корабли по очереди, передавайте устройство друг другу и скрывайте поле между ходами.</p>
+
+        <label class="field-label" for="player1Name">Игрок 1</label>
+        <input id="player1Name" class="text-input" maxlength="18" value="Игрок 1" autocomplete="off" />
+
+        <label class="field-label" for="player2Name">Игрок 2</label>
+        <input id="player2Name" class="text-input" maxlength="18" value="Игрок 2" autocomplete="off" />
+
+        <button id="startBtn" class="primary-btn" type="button">Начать игру</button>
+
+        <div class="small-note">Партия автоматически сохраняется на этом устройстве.</div>
+      </div>
+    </section>
+
+    <section id="screenPlacement" class="screen">
+      <div class="section-heading">
+        <div>
+          <div id="placementPlayerLabel" class="eyebrow"></div>
+          <h2>Расстановка флота</h2>
+        </div>
+        <div id="placementCount" class="status-chip"></div>
+      </div>
+
+      <div class="game-card glass">
+        <div class="instruction-row">
+          <span id="placementInstruction">Выберите корабль и нажмите на поле.</span>
+          <button id="rotateBtn" class="secondary-btn compact" type="button">↻ Повернуть</button>
+        </div>
+
+        <div id="placementBoard" class="board" aria-label="Поле расстановки"></div>
+
+        <div class="fleet-panel">
+          <div class="fleet-title">Ваш флот</div>
+          <div id="fleetPicker" class="fleet-picker"></div>
+        </div>
+
+        <div class="action-row">
+          <button id="randomizeBtn" class="secondary-btn" type="button">Случайно</button>
+          <button id="clearPlacementBtn" class="secondary-btn" type="button">Очистить</button>
+          <button id="confirmPlacementBtn" class="primary-btn" type="button" disabled>Готово</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="screenPass" class="screen">
+      <div class="pass-card glass">
+        <div class="pass-icon">🙈</div>
+        <div id="passEyebrow" class="eyebrow"></div>
+        <h2 id="passTitle">Передайте устройство</h2>
+        <p id="passText">Поле скрыто. Следующий игрок должен нажать кнопку сам.</p>
+        <button id="continueBtn" class="primary-btn" type="button">Я готов</button>
+      </div>
+    </section>
+
+    <section id="screenBattle" class="screen">
+      <div class="section-heading battle-heading">
+        <div>
+          <div id="turnLabel" class="eyebrow"></div>
+          <h2 id="battleTitle">Ваш ход</h2>
+        </div>
+        <div class="turn-stats">
+          <span id="enemyShipsLeft" class="status-chip"></span>
+        </div>
+      </div>
+
+      <div class="battle-layout">
+        <div class="game-card glass">
+          <div class="board-caption">
+            <strong>Поле соперника</strong>
+            <span>Нажмите на клетку для выстрела</span>
+          </div>
+          <div id="enemyBoard" class="board battle-board" aria-label="Поле соперника"></div>
+        </div>
+
+        <div class="game-card glass own-card">
+          <div class="board-caption">
+            <strong>Ваше поле</strong>
+            <span>Здесь видны атаки соперника</span>
+          </div>
+          <div id="ownBoard" class="board small-board" aria-label="Ваше поле"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="screenResult" class="screen">
+      <div class="pass-card glass">
+        <div class="pass-icon">🏆</div>
+        <div class="eyebrow">Партия окончена</div>
+        <h2 id="winnerTitle">Победа!</h2>
+        <p id="winnerText"></p>
+        <button id="playAgainBtn" class="primary-btn" type="button">Сыграть еще раз</button>
+      </div>
+    </section>
+  </main>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <dialog id="confirmDialog" class="confirm-dialog">
+    <form method="dialog">
+      <h3>Начать новую игру?</h3>
+      <p>Текущая партия будет удалена.</p>
+      <div class="dialog-actions">
+        <button value="cancel" class="secondary-btn">Отмена</button>
+        <button value="confirm" class="danger-btn">Новая игра</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>
