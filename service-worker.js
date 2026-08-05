@@ -1,4 +1,4 @@
-const CACHE_NAME = 'v-puti-v1.0.0';
+const CACHE_NAME = 'v-puti-v1.1.0';
 const FILES = [
   './', './index.html', './styles.css', './app.js', './manifest.webmanifest',
   './games/battleship.js', './games/game2048.js', './games/minesweeper.js',
