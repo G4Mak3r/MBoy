@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+  <meta name="theme-color" content="#071923">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="В пути">
+  <title>В пути — офлайн-игры</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="assets/icon-180.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="app" class="app">
+    <header class="app-header">
+      <button id="backButton" class="icon-button hidden" type="button" aria-label="Назад">‹</button>
+      <div class="header-copy">
+        <div id="headerEyebrow" class="eyebrow">Офлайн-коллекция</div>
+        <h1 id="headerTitle">В пути</h1>
+      </div>
+      <button id="homeButton" class="icon-button hidden" type="button" aria-label="На главную">⌂</button>
+    </header>
+
+    <main id="mainView" class="main-view"></main>
+
+    <nav id="bottomNav" class="bottom-nav" aria-label="Основная навигация">
+      <button class="nav-item active" data-page="home" type="button"><span>⌂</span><small>Игры</small></button>
+      <button class="nav-item" data-page="stats" type="button"><span>▥</span><small>Статистика</small></button>
+      <button class="nav-item" data-page="settings" type="button"><span>⚙</span><small>Настройки</small></button>
+    </nav>
+  </div>
+
+  <div id="modalRoot" class="modal-root hidden"></div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script type="module" src="app.js"></script>
+</body>
+</html>

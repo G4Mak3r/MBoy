@@ -1,0 +1,39 @@
+const CACHE_NAME = 'v-puti-v1.0.0';
+const FILES = [
+  './', './index.html', './styles.css', './app.js', './manifest.webmanifest',
+  './games/battleship.js', './games/game2048.js', './games/minesweeper.js',
+  './games/millionaire.js', './games/tictactoe.js',
+  './assets/icon-180.png', './assets/icon-192.png', './assets/icon-512.png'
+];
+
+self.addEventListener('install', event => {
+  event.waitUntil(
+    caches.open(CACHE_NAME)
+      .then(cache => cache.addAll(FILES.map(file => new URL(file, self.location).toString())))
+      .then(() => self.skipWaiting())
+  );
+});
+
+self.addEventListener('activate', event => {
+  event.waitUntil(
+    caches.keys()
+      .then(keys => Promise.all(keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key))))
+      .then(() => self.clients.claim())
+  );
+});
+
+self.addEventListener('fetch', event => {
+  if (event.request.method !== 'GET' || new URL(event.request.url).origin !== self.location.origin) return;
+  event.respondWith(
+    caches.match(event.request).then(cached => {
+      const network = fetch(event.request).then(response => {
+        if (response && response.ok) {
+          const copy = response.clone();
+          caches.open(CACHE_NAME).then(cache => cache.put(event.request, copy));
+        }
+        return response;
+      }).catch(() => cached);
+      return cached || network;
+    })
+  );
+});
